@@ -1,0 +1,70 @@
+{
+  "data": {
+    "path": "D:/Database",
+    "market": "Stock_CH",
+    "symbols": [
+      "SH600000",
+      "SH600028",
+      "SH600030",
+      "SH600031",
+      "SH600036",
+      "SH600048",
+      "SH600050",
+      "SH600104"
+    ],
+    "freq": "T0",
+    "train_date": [
+      "2018-01-01",
+      "2019-07-01"
+    ],
+    "test_date": [
+      "2019-07-01",
+      "2020-01-01"
+    ],
+    "thres": {},
+    "frac": 1,
+    "workers": 4
+  },
+  "predictor": {
+    "TickReturn": {
+      "name": "LGBMRegressor",
+      "params": {
+        "objective": "regression",
+        "boosting": "gbdt",
+        "learning_rate": 0.1,
+        "num_boost_round": 100,
+        "max_bin": 127,
+        "max_depth": 4,
+        "num_leaves": 256,
+        "min_data_in_leaf": 100,
+        "bagging_fraction": 0.66,
+        "feature_fraction": 0.8,
+        "lambda_l1": 0.1,
+        "lambda_l2": 0.1,
+        "verbose": 3,
+        "device": "gpu"
+      },
+      "eval_func":  "r2_score"
+    },
+    "TickReturnLabelThres": {
+      "name": "LGBMClassifier",
+      "params": {
+        "objective": "multiclass",
+        "boosting": "gbdt",
+        "learning_rate": 0.1,
+        "num_boost_round": 100,
+        "max_depth": 6,
+        "num_leaves": 256,
+        "min_data_in_leaf": 100,
+        "bagging_fraction": 0.6,
+        "feature_fraction": 0.6,
+        "lambda_l1": 0.1,
+        "lambda_l2": 0.1,
+        "verbose": 3,
+        "device": "gpu",
+        "num_class": 3
+      },
+      "eval_func":  "f1_score"
+    }
+  }
+}
